@@ -1,4 +1,4 @@
-$(function() {
+$(function () {
   const FADE_TIME = 150; // ms
   const TYPING_TIMER_LENGTH = 400; // ms
   const COLORS = [
@@ -15,7 +15,7 @@ $(function() {
 
   const $loginPage = $('.login.page');        // The login page
   const $chatPage = $('.chat.page');          // The chatroom page
-  
+
   const socket = io();
 
   // Prompt for setting a username
@@ -24,6 +24,7 @@ $(function() {
   let typing = false;
   let lastTypingTime;
   let color = "";
+  let align = "left"
   let $currentInput = $usernameInput.focus();
 
   const addParticipantsMessage = (data) => {
@@ -84,25 +85,43 @@ $(function() {
     }
 
     //TODO: replace with the ngrok address you give to the participant
-    $.ajax({url: `https://9a52c594753b.ngrok.io/color/${data.username}`, success: function(result){
-      color=result
-      if(data.username === username) {
-        color="#0000"
+    $.ajax({
+      url: ` https://e55ada157a2d.ngrok.io/color/${data.username}`, success: function (result) {
+        color = result
+        if (data.username === username) {
+          color = "#0000"
+          align = "right"
+        } else {
+          align = "left"
+        }
+        const $usernameDiv = $('<span class="username"/>')
+          .text(data.username[0].toUpperCase())
+          .css('border-color', color);
+        const $messageBodyDiv = $('<span class="messageBody">')
+          .text(data.message);
+
+        const typingClass = data.typing ? 'typing' : '';
+        if (align === "right") {
+          const $messageDiv = $('<li class="message"/>')
+            .data('username', data.username)
+            .addClass(typingClass)
+            .css('margin-left', "auto")
+            .css('justify-content', "flex-end")
+            .append($messageBodyDiv, $usernameDiv);
+
+          addMessageElement($messageDiv, options);
+        } else {
+          const $messageDiv = $('<li class="message"/>')
+            .data('username', data.username)
+            .addClass(typingClass)
+            .css('margin-right', "auto")
+            .append($usernameDiv, $messageBodyDiv);
+
+          addMessageElement($messageDiv, options);
+        }
+
       }
-          const $usernameDiv = $('<span class="username"/>')
-      .text(data.username[0].toUpperCase())
-      .css('border-color', color);
-    const $messageBodyDiv = $('<span class="messageBody">')
-      .text(data.message);
-
-    const typingClass = data.typing ? 'typing' : '';
-    const $messageDiv = $('<li class="message"/>')
-      .data('username', data.username)
-      .addClass(typingClass)
-      .append($usernameDiv, $messageBodyDiv);
-
-    addMessageElement($messageDiv, options);
-    }});
+    });
 
   }
 
@@ -192,7 +211,7 @@ $(function() {
     }
     // Calculate color
     const index = Math.abs(hash % COLORS.length);
-    localStorage.setItem(username,COLORS[index])
+    localStorage.setItem(username, COLORS[index])
     return COLORS[index];
   }
 

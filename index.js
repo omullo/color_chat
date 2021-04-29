@@ -31,10 +31,10 @@ app.all('*', function (req, res, next) {
 //THIS IS WHERE THE OBSERVER WILL CHANGE THE COLOR
 
 app.get("/color/:username", (req, res) => {
-  if (req.params.username === "Frank") {
+  if (req.params.username === "mhrnz") {
     res.send("#3824aa")
   }
-  if (req.params.username === "william") {
+  if (req.params.username === "mari") {
     res.send("#f78b00")
   }
   res.send("#0000")

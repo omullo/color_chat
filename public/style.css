@@ -104,6 +104,9 @@ ul {
 
 .message {
   margin-top: 50px;
+      display: flex !important;
+    flex-direction: row;
+    max-width: 60%;
 }
 
 .log {
@@ -127,8 +130,16 @@ ul {
   padding: 10px 20px 10px 20px;
 }
 .messageBody{
-  background: darkgray;
+  /* background: darkgray; */
   border-radius: 10px;
+  padding: 5px 15px;
+  /* background: darkgray; */
+  border-radius: 10px;
+  padding: 5px 15px;
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
 }
 
 .message.typing .messageBody {
@@ -140,9 +151,10 @@ ul {
   border: 5px solid black;
   border-radius: 50%;
   font-weight: 700;
-  overflow: hidden;
   padding: 5px 10px;
   margin-right: 5px;
+  max-height: 50px;
+  max-width: 50px;
   text-align: center;
 }
 
