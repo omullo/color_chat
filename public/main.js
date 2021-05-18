@@ -86,7 +86,7 @@ $(function () {
 
     //TODO: replace with the ngrok address you give to the participant
     $.ajax({
-      url: ` https://e55ada157a2d.ngrok.io/color/${data.username}`, success: function (result) {
+      url: `https://f022f37616e3.ngrok.io/color/${data.username}`, success: function (result) {
         color = result
         if (data.username === username) {
           color = "#0000"
